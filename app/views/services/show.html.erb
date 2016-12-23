@@ -4,9 +4,11 @@
   <strong>Name:</strong>
   <%= @service.name %>
 </p>
-<div id="connection">
-  <%= @service.first_connection.name unless @service.first_connection.nil? %>
-</div>
+  <table id="connection">
+    <td style="width:50%"></td>
+    <td>&darr;<%= @service.first_connection.identifier unless @service.first_connection.nil? %></td>
+  </table>
+
 
 
 <%= link_to 'Edit', edit_service_path(@service) %> |
