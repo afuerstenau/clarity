@@ -4,8 +4,8 @@
   <strong>Name:</strong>
   <%= @service.name %>
 </p>
-<div id="comp">
-  <%= @service.component.name unless @service.component.nil? %>
+<div id="connection">
+  <%= @service.first_connection.name unless @service.first_connection.nil? %>
 </div>
 
 
