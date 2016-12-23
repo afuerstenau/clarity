@@ -10,31 +10,29 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161223142743) do
+ActiveRecord::Schema.define(version: 20161223153630) do
 
   create_table "components", force: :cascade do |t|
-    t.integer  "top_connection_id"
-    t.integer  "bottom_connection_id"
+    t.integer  "connection_id"
+    t.integer  "next_connection_id"
     t.string   "name"
     t.string   "notes"
     t.string   "repo"
     t.string   "location"
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
-    t.index ["bottom_connection_id"], name: "index_components_on_bottom_connection_id"
-    t.index ["top_connection_id"], name: "index_components_on_top_connection_id"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.index ["connection_id"], name: "index_components_on_connection_id"
+    t.index ["next_connection_id"], name: "index_components_on_next_connection_id"
   end
 
   create_table "connections", force: :cascade do |t|
-    t.integer  "top_component_id"
-    t.integer  "bottom_component_id"
-    t.integer  "service_id"
+    t.integer  "component_id"
+    t.integer  "next_component_id"
     t.string   "identifier"
-    t.datetime "created_at",          null: false
-    t.datetime "updated_at",          null: false
-    t.index ["bottom_component_id"], name: "index_connections_on_bottom_component_id"
-    t.index ["service_id"], name: "index_connections_on_service_id"
-    t.index ["top_component_id"], name: "index_connections_on_top_component_id"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.index ["component_id"], name: "index_connections_on_component_id"
+    t.index ["next_component_id"], name: "index_connections_on_next_component_id"
   end
 
   create_table "services", force: :cascade do |t|
