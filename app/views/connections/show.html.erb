@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Top Component:</strong>
+  <%= @connection.top_component_id %>
+</p>
+
+<p>
+  <strong>Bottom Component:</strong>
+  <%= @connection.bottom_component_id %>
+</p>
+
+<p>
+  <strong>Identifier:</strong>
+  <%= @connection.identifier %>
+</p>
+
+<%= link_to 'Edit', edit_connection_path(@connection) %> |
+<%= link_to 'Back', connections_path %>

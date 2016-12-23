@@ -1,0 +1,36 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Service:</strong>
+  <%= @component.service %>
+</p>
+
+<p>
+  <strong>Top Connection:</strong>
+  <%= @component.top_connection %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @component.name %>
+</p>
+
+<p>
+  <strong>Notes:</strong>
+  <%= @component.notes %>
+</p>
+
+<p>
+  <strong>Repo:</strong>
+  <%= @component.repo %>
+</p>
+
+<p>
+  <strong>Location:</strong>
+  <%= @component.location %>
+</p>
+
+
+
+<%= link_to 'Edit', edit_component_path(@component) %> |
+<%= link_to 'Back', components_path %>

@@ -1,0 +1,13 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @service.name %>
+</p>
+<div id="comp">
+  <%= @service.component.name unless @service.component.nil? %>
+</div>
+
+
+<%= link_to 'Edit', edit_service_path(@service) %> |
+<%= link_to 'Back', services_path %>
