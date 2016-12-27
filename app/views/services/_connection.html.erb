@@ -1,4 +1,5 @@
 <table>
   <td style="width:50%"></td>
-  <td>&darr;<%= @service.first_connection.identifier %></td>
+  <td>&darr;<%= connection.identifier %></td>
 </table>
+<%= render partial: "component", layout: "component", object: connection.next_component  %>
