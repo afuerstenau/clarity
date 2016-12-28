@@ -2,3 +2,4 @@
   <td style="width:50%"></td>
   <td>&darr;<%= component.name %></td>
 </table>
+<%= (render partial: "connection", layout: "connection", object: component.next_connection) unless component.next_connection.nil? %>

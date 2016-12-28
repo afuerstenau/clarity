@@ -2,4 +2,4 @@
   <td style="width:50%"></td>
   <td>&darr;<%= connection.identifier %></td>
 </table>
-<%= render partial: "component", layout: "component", object: connection.next_component  %>
+<%= render partial: "component", layout: "component", object: connection.next_component unless connection.next_component.nil? %>
