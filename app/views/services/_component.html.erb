@@ -1,4 +1,4 @@
 <tr>
-  <td id="component"><%= component.name %></td>
+  <td id="component"><%= component.name %></td><td><%= link_to image_tag("edit.png", height: '16', width: '16'), edit_component_path(component) %></td>
 </tr>
 <%= (render partial: "connection", layout: "connection", object: component.next_connection) unless component.next_connection.nil? %>

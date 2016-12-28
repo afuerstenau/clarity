@@ -19,6 +19,7 @@ class ComponentsController < ApplicationController
 
   # GET /components/1/edit
   def edit
+    session[:return_to] ||= request.referer
   end
 
   # POST /components
@@ -42,7 +43,7 @@ class ComponentsController < ApplicationController
   def update
     respond_to do |format|
       if @component.update(component_params)
-        format.html { redirect_to @component, notice: 'Component was successfully updated.' }
+        format.html { redirect_to session.delete(:return_to), notice: 'Component was successfully updated.' }
         format.json { render :show, status: :ok, location: @component }
       else
         format.html { render :edit }
