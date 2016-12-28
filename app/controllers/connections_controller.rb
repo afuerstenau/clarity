@@ -19,6 +19,7 @@ class ConnectionsController < ApplicationController
 
   # GET /connections/1/edit
   def edit
+    session[:return_to] ||= request.referer
   end
 
   # POST /connections
@@ -42,7 +43,7 @@ class ConnectionsController < ApplicationController
   def update
     respond_to do |format|
       if @connection.update(connection_params)
-        format.html { redirect_to @connection, notice: 'Connection was successfully updated.' }
+        format.html { redirect_to session.delete(:return_to) }
         format.json { render :show, status: :ok, location: @connection }
       else
         format.html { render :edit }

@@ -1,5 +1,4 @@
-<table>
-  <td style="width:50%"></td>
-  <td>&darr;<%= connection.identifier %></td>
-</table>
+<tr>
+<td>&darr;<%= connection.identifier %></td><td><%= link_to 'Edit', edit_connection_path(connection) %></td>
+</tr>
 <%= render partial: "component", layout: "component", object: connection.next_component unless connection.next_component.nil? %>
