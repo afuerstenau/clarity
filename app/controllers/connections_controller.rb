@@ -43,7 +43,8 @@ class ConnectionsController < ApplicationController
   def update
     respond_to do |format|
       if @connection.update(connection_params)
-        format.html { redirect_to session.delete(:return_to) }
+        print connection_params
+        format.html { redirect_to session.delete(:return_to), notice: 'Connection was successfully updated.'  }
         format.json { render :show, status: :ok, location: @connection }
       else
         format.html { render :edit }
@@ -70,6 +71,6 @@ class ConnectionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def connection_params
-      params.require(:connection).permit(:next_component_id, :identifier)
+      params.require(:connection).permit(:next_component_id, :identifier, :arrow_direction)
     end
 end
