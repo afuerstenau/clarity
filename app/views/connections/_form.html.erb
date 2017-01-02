@@ -18,7 +18,8 @@
 
   <div class="field">
     <%= f.label :arrow_direction %>
-    <%= f.text_field :arrow_direction %>
+    <%= f.radio_button(:arrow_direction, "up") %> &uarr;
+    <span style="padding:20px;" > <%= f.radio_button(:arrow_direction, "down") %>  &darr;
   </div>
 
   <div class="field">
