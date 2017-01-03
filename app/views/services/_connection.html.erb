@@ -1,4 +1,4 @@
 <tr>
-<td><% if "down".eql? connection.arrow_direction %>&darr;<% elsif "up".eql? connection.arrow_direction %>&uarr;<% end %><%= connection.identifier %></td><td><%= link_to image_tag("edit.png", height: '16', width: '16'), edit_connection_path(connection) %></td>
+<td><% if connection.arrow_down? %>&darr;<% elsif connection.arrow_up? %>&uarr;<% end %><%= connection.identifier %></td><td><%= link_to image_tag("edit.png", height: '16', width: '16'), edit_connection_path(connection) %></td>
 </tr>
 <%= render partial: "component", layout: "component", object: connection.next_component unless connection.next_component.nil? %>

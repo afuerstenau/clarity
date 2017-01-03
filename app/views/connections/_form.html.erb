@@ -2,7 +2,6 @@
   <% if connection.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(connection.errors.count, "error") %> prohibited this connection from being saved:</h2>
-
       <ul>
       <% connection.errors.full_messages.each do |message| %>
         <li><%= message %></li>
@@ -18,8 +17,8 @@
 
   <div class="field">
     <%= f.label :arrow_direction %>
-    <%= f.radio_button(:arrow_direction, "up") %> &uarr;
-    <span style="padding:20px;" > <%= f.radio_button(:arrow_direction, "down") %>  &darr;
+    <%= f.radio_button(:arrow_direction, :arrow_up) %> &uarr;
+    <span style="padding:20px;" > <%= f.radio_button(:arrow_direction, :arrow_down) %>  &darr;
   </div>
 
   <div class="field">

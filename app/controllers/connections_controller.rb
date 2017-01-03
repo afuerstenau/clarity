@@ -16,7 +16,6 @@ class ConnectionsController < ApplicationController
   def new
     @connection = Connection.new
   end
-
   # GET /connections/1/edit
   def edit
     session[:return_to] ||= request.referer
