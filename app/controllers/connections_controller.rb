@@ -15,6 +15,7 @@ class ConnectionsController < ApplicationController
   # GET /connections/new
   def new
     @connection = Connection.new
+    session[:previous_component_id] = params[:previous_component_id]
   end
   # GET /connections/1/edit
   def edit
@@ -28,7 +29,8 @@ class ConnectionsController < ApplicationController
 
     respond_to do |format|
       if @connection.save
-        format.html { redirect_to @connection, notice: 'Connection was successfully created.' }
+        update_previous_component
+        format.html { redirect_to session.delete(:return_to), notice: 'Connection was successfully created.'  }
         format.json { render :show, status: :created, location: @connection }
       else
         format.html { render :new }
@@ -63,6 +65,12 @@ class ConnectionsController < ApplicationController
   end
 
   private
+    def update_previous_component
+      previous_component = Component.find(session[:previous_component_id])
+      previous_component.next_connection= @connection
+      previous_component.save
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_connection
       @connection = Connection.find(params[:id])

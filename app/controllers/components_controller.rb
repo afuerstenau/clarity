@@ -1,6 +1,5 @@
 class ComponentsController < ApplicationController
   before_action :set_component, only: [:show, :edit, :update, :destroy]
-
   # GET /components
   # GET /components.json
   def index
@@ -15,6 +14,7 @@ class ComponentsController < ApplicationController
   # GET /components/new
   def new
     @component = Component.new
+    session[:previous_connection_id] = params[:previous_connection_id]
   end
 
   # GET /components/1/edit
@@ -29,7 +29,8 @@ class ComponentsController < ApplicationController
 
     respond_to do |format|
       if @component.save
-        format.html { redirect_to @component, notice: 'Component was successfully created.' }
+        update_previous_connection
+        format.html { redirect_to session.delete(:return_to), notice: 'Component was created successfully.' }
         format.json { render :show, status: :created, location: @component }
       else
         format.html { render :new }
@@ -63,6 +64,13 @@ class ComponentsController < ApplicationController
   end
 
   private
+
+    def update_previous_connection
+      previous_connection = Connection.find(session[:previous_connection_id])
+      previous_connection.next_component= @component
+      previous_connection.save
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_component
       @component = Component.find(params[:id])
