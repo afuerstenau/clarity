@@ -1,24 +1,9 @@
-# README
+In today's organizations it's problematic to have the right level of clarity about the infrastructure and services.
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+One common approach to solve this is to document the architecture (and everything else) in a more or less static and detailed manner but the result is often a static out of date result.
 
-Things you may want to cover:
+Another common approach is to make everybody in the department (or the whole organization) using the same architecture/infrastructure but the result here is that it's hard to upgrade, inappropriate components are being used and/or people try to sneak in more appropriate components.
 
-* Ruby version
+In every case the lack of clarity to make the right decisions seems to be a big problem. It's at least one for me.
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Clarity tries to solve that problem by providing (as automated as possible) static (components and relations) and dynamic (monitoring) information.
