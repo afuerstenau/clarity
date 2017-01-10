@@ -78,6 +78,6 @@ class ComponentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def component_params
-      params.require(:component).permit(:service_id, :name, :notes, :repo, :location, :next_connection_id)
+      params.require(:component).permit(:service_id, :name, :notes, :repo, :location, :location_link, :next_connection_id)
     end
 end

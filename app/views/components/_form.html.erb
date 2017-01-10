@@ -32,8 +32,9 @@
   </div>
 
   <div class="field">
-    <%= f.label :location %>
-    <%= f.text_field :location %>
+      <%= f.label :location %>
+      <%= f.text_field :location, placeholder: 'Location description'%>
+      <%= f.url_field :location_link, placeholder: 'Location as URL' %>
   </div>
 
   <div class="actions">

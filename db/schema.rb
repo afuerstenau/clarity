@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170102205616) do
+ActiveRecord::Schema.define(version: 20170109160424) do
 
   create_table "components", force: :cascade do |t|
     t.integer  "connection_id"
@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(version: 20170102205616) do
     t.string   "location"
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
+    t.string   "location_link"
     t.index ["connection_id"], name: "index_components_on_connection_id"
     t.index ["next_connection_id"], name: "index_components_on_next_connection_id"
   end

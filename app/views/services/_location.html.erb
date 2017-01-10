@@ -1,0 +1,5 @@
+<% if location.location_link.nil? %>
+<%= location.location %>
+<% else %>
+<%= link_to location.location, location.location_link %>
+<% end %>
