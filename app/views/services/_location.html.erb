@@ -1,4 +1,4 @@
-<% if location.location_link.nil? %>
+<% if location.location_link.blank? %>
 <%= location.location %>
 <% else %>
 <%= link_to location.location, location.location_link %>

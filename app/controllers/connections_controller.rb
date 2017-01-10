@@ -78,6 +78,6 @@ class ConnectionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def connection_params
-      params.require(:connection).permit(:next_component_id, :identifier, :arrow_direction)
+      params.require(:connection).permit(:next_component_id, :identifier, :identifier_link, :arrow_direction)
     end
 end

@@ -12,7 +12,8 @@
 
   <div class="field">
     <%= f.label :identifier %>
-    <%= f.text_field :identifier %>
+    <%= f.text_field :identifier, placeholder: 'Identifier description'%>
+    <%= f.url_field :identifier_link, placeholder: 'Identifier as URL' %>
   </div>
 
   <div class="field">
