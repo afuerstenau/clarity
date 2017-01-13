@@ -7,3 +7,4 @@ Another common approach is to make everybody in the department (or the whole org
 In every case the lack of clarity to make the right decisions seems to be a big problem. It's at least one for me.
 
 Clarity tries to solve that problem by providing (as automated as possible) static (components and relations) and dynamic (monitoring) information.
+ 
