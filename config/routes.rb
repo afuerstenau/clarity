@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  root 'services#index', as: 'services_index'
+
   resources :connections
   resources :components
   resources :services
