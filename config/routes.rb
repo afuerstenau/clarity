@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :monitorings
   root 'services#index', as: 'services_index'
 
   resources :connections

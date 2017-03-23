@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170110210715) do
+ActiveRecord::Schema.define(version: 20170323202440) do
 
   create_table "components", force: :cascade do |t|
     t.integer  "connection_id"
@@ -38,11 +38,19 @@ ActiveRecord::Schema.define(version: 20170110210715) do
     t.index ["next_component_id"], name: "index_connections_on_next_component_id"
   end
 
+  create_table "monitorings", force: :cascade do |t|
+    t.string   "url"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "services", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
     t.integer  "first_connection_id"
+    t.string   "monitoring"
+    t.string   "monitoring_id"
     t.index ["name"], name: "index_services_on_name", unique: true
   end
 
