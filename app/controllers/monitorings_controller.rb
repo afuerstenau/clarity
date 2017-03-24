@@ -10,6 +10,9 @@ class MonitoringsController < ApplicationController
   # GET /monitorings/1
   # GET /monitorings/1.json
   def show
+
+    doc = Nokogiri::HTML(open(@monitoring.url, :http_basic_authentication => ["username", "password"]))
+    @state = "ok" if doc.xpath("//*[@class=\"serviceOK\"]").children.first.text.include?("OK")
   end
 
   # GET /monitorings/new
