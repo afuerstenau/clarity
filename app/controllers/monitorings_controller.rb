@@ -1,5 +1,6 @@
 class MonitoringsController < ApplicationController
   before_action :set_monitoring, only: [:show, :edit, :update, :destroy]
+  before_action :encrypt_password, only: [:update]
 
   # GET /monitorings
   # GET /monitorings.json
@@ -10,16 +11,16 @@ class MonitoringsController < ApplicationController
   # GET /monitorings/1
   # GET /monitorings/1.json
   def show
+    doc = Nokogiri::HTML(open(@monitoring.url, :http_basic_authentication => [@monitoring.username, get_decrypted_password]))
+    @state = "ok" if doc.xpath("//*[@class=\"serviceOK\"]").children.first.text.include?("OK")
+  end
+  
+  def get_decrypted_password
     secret = Rails.application.secrets['secret_key_base']
-    puts "Show: The secret is #{secret}"
     salt = @monitoring.salt
-    puts "Show: The salt is #{@monitoring.salt}"
     key = ActiveSupport::KeyGenerator.new(secret).generate_key(salt)
     crypt = ActiveSupport::MessageEncryptor.new(key)
-    decrypted_password = crypt.decrypt_and_verify(@monitoring.password)
-    puts "Show: The decrypted password is #{decrypted_password}"
-    doc = Nokogiri::HTML(open(@monitoring.url, :http_basic_authentication => [@monitoring.username, decrypted_password]))
-    @state = "ok" if doc.xpath("//*[@class=\"serviceOK\"]").children.first.text.include?("OK")
+    crypt.decrypt_and_verify(@monitoring.password)
   end
 
   # GET /monitorings/new
@@ -50,15 +51,8 @@ class MonitoringsController < ApplicationController
   # PATCH/PUT /monitorings/1
   # PATCH/PUT /monitorings/1.json
   def update
-    @monitoring.salt = SecureRandom.urlsafe_base64
-    secret = Rails.application.secrets['secret_key_base']
-    key = ActiveSupport::KeyGenerator.new(secret).generate_key(@monitoring.salt)
-    crypt = ActiveSupport::MessageEncryptor.new(key)
-    cleartext_password = monitoring_params[:cleartext_password]
-    @monitoring.password = crypt.encrypt_and_sign(cleartext_password)
-    my_params = monitoring_params.except(:cleartext_password)
     respond_to do |format|
-      if @monitoring.update(my_params)
+      if @monitoring.update(monitoring_params_without_cleartext_password)
         format.html { redirect_to @monitoring, notice: 'Monitoring was successfully updated.' }
         format.json { render :show, status: :ok, location: @monitoring }
       else
@@ -66,6 +60,15 @@ class MonitoringsController < ApplicationController
         format.json { render json: @monitoring.errors, status: :unprocessable_entity }
       end
     end
+  end
+  
+  def encrypt_password
+    @monitoring.salt = SecureRandom.urlsafe_base64
+    secret = Rails.application.secrets['secret_key_base']
+    key = ActiveSupport::KeyGenerator.new(secret).generate_key(@monitoring.salt)
+    crypt = ActiveSupport::MessageEncryptor.new(key)
+    cleartext_password = monitoring_params[:cleartext_password]
+    @monitoring.password = crypt.encrypt_and_sign(cleartext_password)
   end
 
   # DELETE /monitorings/1
@@ -93,5 +96,9 @@ class MonitoringsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def monitoring_params
       params.require(:monitoring).permit(:url, :service, :username, :cleartext_password)
+    end
+    
+    def monitoring_params_without_cleartext_password
+      monitoring_params.except(:cleartext_password)
     end
 end
