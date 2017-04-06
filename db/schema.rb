@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170323202440) do
+ActiveRecord::Schema.define(version: 20170327185718) do
 
   create_table "components", force: :cascade do |t|
     t.integer  "connection_id"
@@ -42,6 +42,9 @@ ActiveRecord::Schema.define(version: 20170323202440) do
     t.string   "url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "username"
+    t.string   "password"
+    t.string   "salt"
   end
 
   create_table "services", force: :cascade do |t|

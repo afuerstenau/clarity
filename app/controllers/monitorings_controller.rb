@@ -10,8 +10,15 @@ class MonitoringsController < ApplicationController
   # GET /monitorings/1
   # GET /monitorings/1.json
   def show
-
-    doc = Nokogiri::HTML(open(@monitoring.url, :http_basic_authentication => ["username", "password"]))
+    secret = Rails.application.secrets['secret_key_base']
+    puts "Show: The secret is #{secret}"
+    salt = @monitoring.salt
+    puts "Show: The salt is #{@monitoring.salt}"
+    key = ActiveSupport::KeyGenerator.new(secret).generate_key(salt)
+    crypt = ActiveSupport::MessageEncryptor.new(key)
+    decrypted_password = crypt.decrypt_and_verify(@monitoring.password)
+    puts "Show: The decrypted password is #{decrypted_password}"
+    doc = Nokogiri::HTML(open(@monitoring.url, :http_basic_authentication => [@monitoring.username, decrypted_password]))
     @state = "ok" if doc.xpath("//*[@class=\"serviceOK\"]").children.first.text.include?("OK")
   end
 
@@ -28,8 +35,6 @@ class MonitoringsController < ApplicationController
   # POST /monitorings
   # POST /monitorings.json
   def create
-    @monitoring = Monitoring.new(monitoring_params)
-
     respond_to do |format|
       if @monitoring.save
         update_service
@@ -45,8 +50,15 @@ class MonitoringsController < ApplicationController
   # PATCH/PUT /monitorings/1
   # PATCH/PUT /monitorings/1.json
   def update
+    @monitoring.salt = SecureRandom.urlsafe_base64
+    secret = Rails.application.secrets['secret_key_base']
+    key = ActiveSupport::KeyGenerator.new(secret).generate_key(@monitoring.salt)
+    crypt = ActiveSupport::MessageEncryptor.new(key)
+    cleartext_password = monitoring_params[:cleartext_password]
+    @monitoring.password = crypt.encrypt_and_sign(cleartext_password)
+    my_params = monitoring_params.except(:cleartext_password)
     respond_to do |format|
-      if @monitoring.update(monitoring_params)
+      if @monitoring.update(my_params)
         format.html { redirect_to @monitoring, notice: 'Monitoring was successfully updated.' }
         format.json { render :show, status: :ok, location: @monitoring }
       else
@@ -80,6 +92,6 @@ class MonitoringsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def monitoring_params
-      params.require(:monitoring).permit(:url, :service)
+      params.require(:monitoring).permit(:url, :service, :username, :cleartext_password)
     end
 end

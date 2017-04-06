@@ -1,3 +1,3 @@
 class Monitoring < ApplicationRecord
-
+  
 end
