@@ -7,5 +7,5 @@
 
 Display: <%= @state %>
 
-<%= link_to 'Edit', edit_monitoring_path(@monitoring) %> |
+<%= link_to 'Edit', sti_monitoring_path(@monitoring.type, @monitoring, :edit) %> |
 <%= link_to 'Back', monitorings_path %>

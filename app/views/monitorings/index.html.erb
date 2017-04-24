@@ -14,8 +14,8 @@
     <% @monitorings.each do |monitoring| %>
       <tr>
         <td><%= monitoring.url %></td>
-        <td><%= link_to 'Show', monitoring %></td>
-        <td><%= link_to 'Edit', edit_monitoring_path(monitoring) %></td>
+        <td><%= link_to 'Show', sti_monitoring_path(monitoring.type, monitoring) %></td>
+        <td><%= link_to 'Edit', sti_monitoring_path(monitoring.type, monitoring, :edit) %></td>
         <td><%= link_to 'Destroy', monitoring, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
@@ -24,4 +24,4 @@
 
 <br>
 
-<%= link_to 'New Monitoring', new_monitoring_path %>
+<%= link_to 'New Icinga', new_icinga_path %>

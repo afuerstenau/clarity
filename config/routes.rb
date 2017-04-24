@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
   resources :monitorings
+  resources :icingas, controller: 'monitorings', type: 'Icinga'
+  resources :nagios, controller: 'monitorings', type: 'Nagios'
   root 'services#index', as: 'services_index'
 
   resources :connections
